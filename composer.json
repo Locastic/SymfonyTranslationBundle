@@ -1,0 +1,38 @@
+{
+  "name": "locastic/symfony-translation-bundle",
+  "description": "Symfony translation bundle",
+  "license": "MIT",
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "Stéphane DECOCK",
+      "email": "stephane@locastic.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4 || >=8.0",
+    "doctrine/doctrine-bundle": "^2.7",
+    "doctrine/doctrine-migrations-bundle": "^3.2",
+    "symfony/console": "5.4.*",
+    "symfony/http-kernel": "5.4.*",
+    "symfony/property-access": "5.4.*",
+    "symfony/translation": "5.4.*",
+    "symfony/yaml": "5.4.*"
+  },
+  "require-dev": {
+  },
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Locastic\\SymfonyTranslationBundle\\": "src/",
+      "Locastic\\SymfonyTranslationBundle\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "conflict": {
+  }
+}
