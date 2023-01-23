@@ -6,7 +6,9 @@ namespace Locastic\SymfonyTranslationBundle\Utils;
 
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
+use function array_merge_recursive;
 use function explode;
+use function is_array;
 
 final class ArrayUtils
 {

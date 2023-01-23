@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Locastic\SymfonyTranslationBundle\Saver;
 
+use Locastic\SymfonyTranslationBundle\Exception\GenerateTranslationFileNameException;
+use Locastic\SymfonyTranslationBundle\Exception\TranslationNotFoundException;
 use Locastic\SymfonyTranslationBundle\Model\TranslationValueInterface;
 use Locastic\SymfonyTranslationBundle\Provider\TranslationFileNameProviderInterface;
 use Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProviderInterface;
@@ -14,6 +16,7 @@ use Symfony\Component\Yaml\Yaml;
 
 use function array_key_exists;
 use function array_replace_recursive;
+use function is_string;
 
 final class TranslationValueSaver implements TranslationValueSaverInterface
 {
@@ -37,6 +40,10 @@ final class TranslationValueSaver implements TranslationValueSaverInterface
         $this->translationsProvider = $translationsProvider;
     }
 
+    /**
+     * @throws TranslationNotFoundException
+     * @throws GenerateTranslationFileNameException
+     */
     public function saveTranslationValue(TranslationValueInterface $translationValue, bool $overrideExisting = true): void
     {
         $translation = $translationValue->getTranslation();
@@ -68,7 +75,7 @@ final class TranslationValueSaver implements TranslationValueSaverInterface
             if (!array_key_exists($translationValue->getLocaleCode(), $newTranslation)) {
                 continue;
             }
-            if (!\is_string($newTranslation[$translationValue->getLocaleCode()])) {
+            if (!is_string($newTranslation[$translationValue->getLocaleCode()])) {
                 continue;
             }
             $result = array_replace_recursive($result, ArrayUtils::keyToArray($newTranslationKey, $newTranslation[$translationValue->getLocaleCode()]));
@@ -82,13 +89,17 @@ final class TranslationValueSaver implements TranslationValueSaverInterface
         $filesystem->dumpFile($filePath . $fileName, Yaml::dump($result, 8));
     }
 
+    /**
+     * @throws TranslationNotFoundException
+     * @throws GenerateTranslationFileNameException
+     */
     public function saveTranslations(array $translations): void
     {
         $files = [];
         foreach ($translations as $translation) {
             foreach ($translation->getValues() as $translationValue) {
                 $fileName = $this->translationFileNameProvider->getFileName($translationValue);
-                if (!\array_key_exists($fileName, $files)) {
+                if (!array_key_exists($fileName, $files)) {
                     $files[$fileName] = [];
                 }
 
