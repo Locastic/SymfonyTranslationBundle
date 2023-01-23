@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Locastic\SymfonyTranslationBundle\Utils;
 
 use Symfony\Component\PropertyAccess\PropertyAccessor;
+
 use function explode;
 
 final class ArrayUtils
@@ -29,7 +30,9 @@ final class ArrayUtils
     public static function recursiveKsort(array &$array): bool
     {
         foreach ($array as &$value) {
-            if (is_array($value)) self::recursiveKsort($value);
+            if (is_array($value)) {
+                self::recursiveKsort($value);
+            }
         }
 
         return ksort($array);

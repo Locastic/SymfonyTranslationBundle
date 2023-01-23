@@ -6,8 +6,10 @@ namespace Locastic\SymfonyTranslationBundle\Provider;
 
 use InvalidArgumentException;
 use Locastic\SymfonyTranslationBundle\Utils\ArrayUtils;
+use LogicException;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
+
 use function array_key_exists;
 use function array_key_first;
 use function array_replace_recursive;
@@ -169,8 +171,7 @@ final class TranslationsProvider implements TranslationsProviderInterface
 
         switch ($type) {
             case self::TYPE_XML:
-                throw new \LogicException('This has not been implemented yet');
-                return [];
+                throw new LogicException('This has not been implemented yet');
             case self::TYPE_YAML:
             default:
                 return Yaml::parse(file_get_contents($filePath));

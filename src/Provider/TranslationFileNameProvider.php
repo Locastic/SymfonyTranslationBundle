@@ -7,6 +7,7 @@ namespace Locastic\SymfonyTranslationBundle\Provider;
 use Locastic\SymfonyTranslationBundle\Exception\GenerateTranslationFileNameException;
 use Locastic\SymfonyTranslationBundle\Exception\TranslationNotFoundException;
 use Locastic\SymfonyTranslationBundle\Model\TranslationValueInterface;
+
 use function sprintf;
 
 final class TranslationFileNameProvider implements TranslationFileNameProviderInterface

@@ -7,6 +7,7 @@ namespace Locastic\SymfonyTranslationBundle\TranslationMigration;
 use Locastic\SymfonyTranslationBundle\Model\Translation;
 use Locastic\SymfonyTranslationBundle\Model\TranslationValue;
 use ReflectionClass;
+
 use function str_replace;
 
 abstract class AbstractTranslationMigration
@@ -18,7 +19,7 @@ abstract class AbstractTranslationMigration
         $this->migrationExecutor = $migrationExecutor;
     }
 
-    public abstract function up(): void;
+    abstract public function up(): void;
 
     public function addTranslation(
         string $key,

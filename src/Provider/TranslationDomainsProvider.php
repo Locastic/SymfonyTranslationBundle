@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Locastic\SymfonyTranslationBundle\Provider;
 
 use Symfony\Component\Finder\Finder;
+
 use function array_key_exists;
 use function explode;
 use function in_array;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Locastic\SymfonyTranslationBundle\Command;
+namespace Locastic\SymfonyTranslationBundle\Cli;
 
 use Locastic\SymfonyTranslationBundle\Provider\TranslationsProviderInterface;
 use Locastic\SymfonyTranslationBundle\Saver\TranslationValueSaverInterface;
@@ -10,6 +10,7 @@ use Locastic\SymfonyTranslationBundle\Transformer\TranslationKeyToTranslationTra
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function sprintf;
 
 final class WriteTranslationValuesCommand extends Command

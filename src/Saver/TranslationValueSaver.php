@@ -11,6 +11,7 @@ use Locastic\SymfonyTranslationBundle\Provider\TranslationsProviderInterface;
 use Locastic\SymfonyTranslationBundle\Utils\ArrayUtils;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
+
 use function array_key_exists;
 use function array_replace_recursive;
 

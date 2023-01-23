@@ -7,6 +7,7 @@ namespace Locastic\SymfonyTranslationBundle\Transformer;
 use Locastic\SymfonyTranslationBundle\Model\Translation;
 use Locastic\SymfonyTranslationBundle\Model\TranslationValue;
 use Locastic\SymfonyTranslationBundle\Model\TranslationValueInterface;
+
 use function sprintf;
 
 final class TranslationValueToFormFieldTransformer implements TranslationValueToFormFieldTransformerInterface
