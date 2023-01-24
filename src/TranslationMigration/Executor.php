@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Locastic\SymfonyTranslationBundle\TranslationMigration;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactoryInterface;
@@ -20,16 +21,16 @@ final class Executor implements ExecutorInterface
 
     private TranslationMigrationFactoryInterface $translationMigrationFactory;
 
-    private ObjectManager $objectManager;
+    private ManagerRegistry $managerRegistry;
 
     public function __construct(
         TranslationValueSaverInterface $translationValueSaver,
         TranslationMigrationFactoryInterface $translationMigrationFactory,
-        ObjectManager $objectManager
+        ManagerRegistry $managerRegistry
     ) {
         $this->translationValueSaver = $translationValueSaver;
         $this->translationMigrationFactory = $translationMigrationFactory;
-        $this->objectManager = $objectManager;
+        $this->managerRegistry = $managerRegistry;
     }
 
     public function addTranslation(Translation $translation): void
@@ -79,13 +80,13 @@ final class Executor implements ExecutorInterface
         $translationMigration = $this->translationMigrationFactory->createNew();
         $translationMigration->setNumber($migration->getVersionNumber());
 
-        $this->objectManager->persist($translationMigration);
-        $this->objectManager->flush();
+        $this->managerRegistry->getManager()->persist($translationMigration);
+        $this->managerRegistry->getManager()->flush();
     }
 
     private function hasAlreadyBeenPlayed(AbstractTranslationMigration $migration): bool
     {
-        return $this->objectManager
+        return $this->managerRegistry
                 ->getRepository(TranslationMigrationInterface::class)
                 ->findOneBy(['number' => $migration->getVersionNumber()]) instanceof TranslationMigrationInterface;
     }

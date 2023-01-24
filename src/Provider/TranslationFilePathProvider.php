@@ -8,20 +8,20 @@ use Locastic\SymfonyTranslationBundle\Model\TranslationValueInterface;
 
 final class TranslationFilePathProvider implements TranslationFilePathProviderInterface
 {
-    private ThemesProviderInterface $themesProvider;
+    private string $translationsDirectory;
 
-    public function __construct(ThemesProviderInterface $themesProvider)
+    public function __construct(string $translationsDirectory)
     {
-        $this->themesProvider = $themesProvider;
+        $this->translationsDirectory = $translationsDirectory;
     }
 
     public function getFilePath(TranslationValueInterface $translationValue): string
     {
-        $theme = $this->themesProvider->findOneByName($translationValue->getTheme());
-        if (null === $theme) {
-            $theme = $this->themesProvider->getDefaultTheme();
-        }
+        return $this->getDefaultDirectory();
+    }
 
-        return $theme->getPath() . '/translations/';
+    public function getDefaultDirectory(): string
+    {
+        return $this->translationsDirectory;
     }
 }

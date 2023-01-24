@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="true">
+            <bind key="array $enabledBundles">%kernel.bundles%</bind>
+            <bind key="string $translationMigrationDirectory">%kernel.project_dir%/src/TranslationMigrations/</bind>
+            <bind key="Doctrine\Migrations\Finder\GlobFinder $translationFinder" type="service" id="locastic_symfony_translation.finder.migrations" />
+        </defaults>
+
+        <!-- Commands -->
+        <service id="Locastic\SymfonyTranslationBundle\Cli\WriteTranslationValuesCommand">
+            <bind key="string $localeCode">%locastic_symfony_translation.default_locale%</bind>
+            <bind key="array $locales">%locastic_symfony_translation.locales%</bind>
+        </service>
+
+        <service id="Locastic\SymfonyTranslationBundle\Cli\ExecuteMigrationCommand" />
+
+        <!-- Controllers -->
+        <service id="Locastic\SymfonyTranslationBundle\Controller\SaveTranslationsAction">
+            <tag name="controller.service_arguments" />
+        </service>
+
+        <!-- Factories -->
+        <service id="Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactory" />
+        <service id="Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactoryInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactory" />
+
+        <!-- Finder -->
+        <service id="locastic_symfony_translation.finder.migrations" class="Doctrine\Migrations\Finder\GlobFinder" />
+
+        <!-- Forms -->
+        <service id="Locastic\SymfonyTranslationBundle\Form\Type\SearchTranslationType" />
+
+        <!-- Providers -->
+        <service id="Locastic\SymfonyTranslationBundle\Provider\LocalesProvider" />
+        <service id="Locastic\SymfonyTranslationBundle\Provider\LocalesProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\LocalesProvider" />
+
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationDomainsProvider" />
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationDomainsProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\TranslationDomainsProvider" />
+
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFileNameProvider" />
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFileNameProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\TranslationFileNameProvider" />
+
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProvider">
+            <bind key="string $translationsDirectory">%translator.default_path%/</bind>
+        </service>
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProvider" />
+
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationsProvider" />
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationsProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\TranslationsProvider" />
+
+        <!-- Savers -->
+        <service id="Locastic\SymfonyTranslationBundle\Saver\TranslationValueSaver">
+            <bind key="string $directory">%translator.default_path%</bind>
+        </service>
+        <service id="Locastic\SymfonyTranslationBundle\Saver\TranslationValueSaverInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Saver\TranslationValueSaver" />
+
+        <!-- TranslationMigration -->
+        <service id="Locastic\SymfonyTranslationBundle\TranslationMigration\Executor">
+        </service>
+        <service id="Locastic\SymfonyTranslationBundle\TranslationMigration\ExecutorInterface"
+                 alias="Locastic\SymfonyTranslationBundle\TranslationMigration\Executor" />
+
+        <!-- Transformers -->
+        <service id="Locastic\SymfonyTranslationBundle\Transformer\TranslationKeyToTranslationTransformer" />
+        <service id="Locastic\SymfonyTranslationBundle\Transformer\TranslationKeyToTranslationTransformerInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Transformer\TranslationKeyToTranslationTransformer" />
+
+        <service id="Locastic\SymfonyTranslationBundle\Transformer\TranslationValueToFormFieldTransformer" />
+        <service id="Locastic\SymfonyTranslationBundle\Transformer\TranslationValueToFormFieldTransformerInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Transformer\TranslationValueToFormFieldTransformer" />
+
+        <!-- Twig Extensions -->
+        <service id="Locastic\SymfonyTranslationBundle\Twig\TranslationExtension">
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>
