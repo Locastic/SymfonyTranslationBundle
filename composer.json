@@ -9,6 +9,11 @@
       "email": "stephane@locastic.com"
     }
   ],
+  "keywords": [
+    "symfony",
+    "symfony-bundle",
+    "translations"
+  ],
   "require": {
     "php": ">=7.4 || >=8.1",
     "doctrine/doctrine-bundle": "^2.7",

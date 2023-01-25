@@ -82,5 +82,10 @@
         <service id="Locastic\SymfonyTranslationBundle\Twig\TranslationExtension">
             <tag name="twig.extension" />
         </service>
+
+        <!-- Utils -->
+        <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils" />
+        <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtilsInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils" />
     </services>
 </container>

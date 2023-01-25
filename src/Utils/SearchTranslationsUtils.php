@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Locastic\SymfonyTranslationBundle\Utils;
 
-use Locastic\SymfonyTranslationBundle\Form\Type\SearchTranslationType;
 use Locastic\SymfonyTranslationBundle\Model\SearchTranslation;
 use Locastic\SymfonyTranslationBundle\Model\TranslationInterface;
 use Locastic\SymfonyTranslationBundle\Provider\TranslationsProviderInterface;
@@ -12,16 +11,14 @@ use Locastic\SymfonyTranslationBundle\Transformer\TranslationKeyToTranslationTra
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
-use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use function array_filter;
 use function mb_strpos;
 
-final class SearchTranslationsUtils
+final class SearchTranslationsUtils implements SearchTranslationsUtilsInterface
 {
-    private FormFactoryInterface  $formFactory;
-
     private TranslationsProviderInterface $translationsProvider;
 
     private TranslationKeyToTranslationTransformerInterface $translationTransformer;
@@ -31,25 +28,22 @@ final class SearchTranslationsUtils
     private array $locales;
 
     public function __construct(
-        FormFactoryInterface $formFactory,
         TranslationsProviderInterface $translationsProvider,
         TranslationKeyToTranslationTransformerInterface $translationTransformer,
         string $localeCode,
         array $locales
     ) {
-        $this->formFactory = $formFactory;
         $this->translationsProvider = $translationsProvider;
         $this->translationTransformer = $translationTransformer;
         $this->localeCode = $localeCode;
         $this->locales = $locales;
     }
 
-    public function searchTranslationsFromRequest(Request $request): PagerfantaInterface
-    {
-        $search = new SearchTranslation();
-        $searchForm = $this->formFactory->create(SearchTranslationType::class, $search);
-        $searchForm->handleRequest($request);
-
+    public function searchTranslationsFromRequest(
+        Request $request,
+        SearchTranslation $search,
+        FormInterface $searchForm
+    ): PagerfantaInterface {
         $translations = $this->translationsProvider->getTranslations($this->localeCode, $this->locales);
         $translations = $this->translationsProvider->defineAllKeys($translations, $this->locales);
         $translations = $this->translationTransformer->transformMultiple($translations);
