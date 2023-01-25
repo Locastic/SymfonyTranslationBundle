@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Locastic\SymfonyTranslationBundle\Model;
 
 use DateTime;
-use Sylius\Component\Resource\Model\ResourceInterface;
 
-interface TranslationMigrationInterface extends ResourceInterface
+interface TranslationMigrationInterface
 {
+    public function getId(): ?int;
+
     public function getNumber(): ?string;
 
     public function setNumber(?string $number): void;

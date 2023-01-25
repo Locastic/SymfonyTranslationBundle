@@ -34,9 +34,19 @@
         <service id="Locastic\SymfonyTranslationBundle\Form\Type\SearchTranslationType" />
 
         <!-- Providers -->
+        <service id="Locastic\SymfonyTranslationBundle\Provider\DefaultTranslationDirectoryProvider">
+            <bind key="string $translationsDirectory">%translator.default_path%/</bind>
+        </service>
+        <service id="Locastic\SymfonyTranslationBundle\Provider\DefaultTranslationDirectoryProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\DefaultTranslationDirectoryProvider" />
+
         <service id="Locastic\SymfonyTranslationBundle\Provider\LocalesProvider" />
         <service id="Locastic\SymfonyTranslationBundle\Provider\LocalesProviderInterface"
                  alias="Locastic\SymfonyTranslationBundle\Provider\LocalesProvider" />
+
+        <service id="Locastic\SymfonyTranslationBundle\Provider\ThemesProvider" />
+        <service id="Locastic\SymfonyTranslationBundle\Provider\ThemesProviderInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Provider\ThemesProvider" />
 
         <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationDomainsProvider" />
         <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationDomainsProviderInterface"
@@ -46,9 +56,7 @@
         <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFileNameProviderInterface"
                  alias="Locastic\SymfonyTranslationBundle\Provider\TranslationFileNameProvider" />
 
-        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProvider">
-            <bind key="string $translationsDirectory">%translator.default_path%/</bind>
-        </service>
+        <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProvider" />
         <service id="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProviderInterface"
                  alias="Locastic\SymfonyTranslationBundle\Provider\TranslationFilePathProvider" />
 
@@ -84,7 +92,10 @@
         </service>
 
         <!-- Utils -->
-        <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils" />
+        <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils">
+            <bind key="string $localeCode">%locastic_sylius_translation.default_locale%</bind>
+            <bind key="array $locales">%locastic_sylius_translation.locales%</bind>
+        </service>
         <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtilsInterface"
                  alias="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils" />
     </services>

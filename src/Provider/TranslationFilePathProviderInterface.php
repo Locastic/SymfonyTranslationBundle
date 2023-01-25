@@ -9,6 +9,4 @@ use Locastic\SymfonyTranslationBundle\Model\TranslationValueInterface;
 interface TranslationFilePathProviderInterface
 {
     public function getFilePath(TranslationValueInterface $translationValue): string;
-
-    public function getDefaultDirectory(): string;
 }

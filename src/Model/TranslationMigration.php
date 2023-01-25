@@ -8,11 +8,11 @@ use DateTime;
 
 class TranslationMigration implements TranslationMigrationInterface
 {
-    private ?int $id = null;
+    protected ?int $id = null;
 
-    private ?string $number = null;
+    protected ?string $number = null;
 
-    private ?DateTime $createdAt = null;
+    protected ?DateTime $createdAt = null;
 
     public function getId(): ?int
     {

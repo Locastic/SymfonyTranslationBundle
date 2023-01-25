@@ -27,7 +27,9 @@ final class TranslationsProvider implements TranslationsProviderInterface
 
     private TranslationFileNameProviderInterface $translationFileNameProvider;
 
-    private TranslationFilePathProviderInterface $translationFilePathProvider;
+    private DefaultTranslationDirectoryProviderInterface $defaultTranslationDirectoryProvider;
+
+    private ThemesProviderInterface $themesProvider;
 
     public function __construct(
         array $enabledBundles,
@@ -35,14 +37,16 @@ final class TranslationsProvider implements TranslationsProviderInterface
         LocalesProviderInterface $localesProvider,
         FileLocator $fileLocator,
         TranslationFileNameProviderInterface $translationFileNameProvider,
-        TranslationFilePathProviderInterface $translationFilePathProvider
+        DefaultTranslationDirectoryProviderInterface $defaultTranslationDirectoryProvider,
+        ThemesProviderInterface $themesProvider
     ) {
         $this->bundles = $enabledBundles;
         $this->translationDomainsProvider = $translationDomainsProvider;
         $this->localesProvider = $localesProvider;
         $this->fileLocator = $fileLocator;
         $this->translationFileNameProvider = $translationFileNameProvider;
-        $this->translationFilePathProvider = $translationFilePathProvider;
+        $this->defaultTranslationDirectoryProvider = $defaultTranslationDirectoryProvider;
+        $this->themesProvider = $themesProvider;
     }
 
     public function getTranslations(string $defaultLocaleCode, array $locales): array
@@ -54,11 +58,26 @@ final class TranslationsProvider implements TranslationsProviderInterface
                 $this->getBundleTranslations($bundleName, $defaultLocaleCode, $locales)
             );
         }
-        $translations = $this->getDirectoryTranslations(
-            $this->translationFilePathProvider->getDefaultDirectory(),
+        $appTranslations = $this->getDirectoryTranslations(
+            $this->defaultTranslationDirectoryProvider->getDefaultDirectory(),
             $defaultLocaleCode,
             $locales
         );
+
+        $themes = $this->themesProvider->getAll();
+        $translations = [];
+        foreach ($themes as $theme) {
+            $translationDirectory = $this->defaultTranslationDirectoryProvider->getDefaultDirectory();
+            if (ThemesProviderInterface::NAME_DEFAULT !== $theme->getName()) {
+                $translationDirectory .= '/translations/';
+            }
+            $themeTranslations = $this->getDirectoryTranslations($translationDirectory, $defaultLocaleCode, $locales);
+            $themeTranslations = $this->removeEmptyKeys($themeTranslations);
+
+            $mergedTranslations = array_replace_recursive($bundleTranslations, $appTranslations, $themeTranslations);
+            $mergedTranslations = $this->fillMissingKeys($mergedTranslations, $locales);
+            $translations[$theme->getName()] = $mergedTranslations;
+        }
         $translations = $this->fillMissingKeys($translations, $locales);
 
         ArrayUtils::recursiveKsort($translations);
