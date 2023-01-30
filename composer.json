@@ -24,7 +24,7 @@
     "symfony/translation": "5.4.* || 6.*",
     "symfony/yaml": "5.4.* || 6.*",
     "twig/twig": "2.15.* || ^3.5",
-    "pagerfanta/pagerfanta": "^3.6 || ^4.0",
+    "pagerfanta/pagerfanta": "^2.6 || ^3.6 || ^4.0",
     "symfony/form": "5.4.* || 6.*"
   },
   "prefer-stable": true,
