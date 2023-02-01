@@ -72,8 +72,7 @@
                  alias="Locastic\SymfonyTranslationBundle\Saver\TranslationValueSaver" />
 
         <!-- TranslationMigration -->
-        <service id="Locastic\SymfonyTranslationBundle\TranslationMigration\Executor">
-        </service>
+        <service id="Locastic\SymfonyTranslationBundle\TranslationMigration\Executor" />
         <service id="Locastic\SymfonyTranslationBundle\TranslationMigration\ExecutorInterface"
                  alias="Locastic\SymfonyTranslationBundle\TranslationMigration\Executor" />
 

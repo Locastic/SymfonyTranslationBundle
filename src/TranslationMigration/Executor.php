@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Locastic\SymfonyTranslationBundle\TranslationMigration;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Persistence\ObjectManager;
 use Exception;
 use Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactoryInterface;
 use Locastic\SymfonyTranslationBundle\Model\Translation;
