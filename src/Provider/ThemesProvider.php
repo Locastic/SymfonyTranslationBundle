@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace Locastic\SymfonyTranslationBundle\Provider;
 
-use Locastic\SymfonyTranslationBundle\Model\Theme;
+use Locastic\SymfonyTranslationBundle\Factory\ThemeFactoryInterface;
 use Locastic\SymfonyTranslationBundle\Model\ThemeInterface;
 
 final class ThemesProvider implements ThemesProviderInterface
 {
     private DefaultTranslationDirectoryProviderInterface $defaultTranslationDirectoryProvider;
 
-    public function __construct(DefaultTranslationDirectoryProviderInterface $defaultTranslationDirectoryProvider)
-    {
+    private ThemeFactoryInterface $themeFactory;
+
+    public function __construct(
+        DefaultTranslationDirectoryProviderInterface $defaultTranslationDirectoryProvider,
+        ThemeFactoryInterface $themeFactory
+    ) {
         $this->defaultTranslationDirectoryProvider = $defaultTranslationDirectoryProvider;
+        $this->themeFactory = $themeFactory;
     }
 
     public function getAll(): array
@@ -28,6 +33,6 @@ final class ThemesProvider implements ThemesProviderInterface
 
     public function getDefaultTheme(): ThemeInterface
     {
-        return new Theme(self::NAME_DEFAULT, $this->defaultTranslationDirectoryProvider->getDefaultDirectory());
+        return $this->themeFactory->createNew(self::NAME_DEFAULT, $this->defaultTranslationDirectoryProvider->getDefaultDirectory());
     }
 }

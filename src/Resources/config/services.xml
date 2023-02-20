@@ -23,6 +23,10 @@
         </service>
 
         <!-- Factories -->
+        <service id="Locastic\SymfonyTranslationBundle\Factory\ThemeFactory" />
+        <service id="Locastic\SymfonyTranslationBundle\Factory\ThemeFactoryInterface"
+                 alias="Locastic\SymfonyTranslationBundle\Factory\ThemeFactory" />
+
         <service id="Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactory" />
         <service id="Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactoryInterface"
                  alias="Locastic\SymfonyTranslationBundle\Factory\TranslationMigrationFactory" />
