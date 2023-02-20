@@ -67,9 +67,10 @@ final class TranslationsProvider implements TranslationsProviderInterface
         $themes = $this->themesProvider->getAll();
         $translations = [];
         foreach ($themes as $theme) {
-            $translationDirectory = $this->defaultTranslationDirectoryProvider->getDefaultDirectory();
-            if (ThemesProviderInterface::NAME_DEFAULT !== $theme->getName()) {
-                $translationDirectory .= '/translations/';
+            if (!empty($theme->getPath())) {
+                $translationDirectory = $theme->getPath() . '/translations/';
+            } else {
+                $translationDirectory = $this->defaultTranslationDirectoryProvider->getDefaultDirectory();
             }
             $themeTranslations = $this->getDirectoryTranslations($translationDirectory, $defaultLocaleCode, $locales);
             $themeTranslations = $this->removeEmptyKeys($themeTranslations);
