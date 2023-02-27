@@ -21,7 +21,7 @@ final class TranslationExtension extends AbstractExtension
     public function getFilters(): iterable
     {
         return [
-            new TwigFilter('locastic_sylius_translation_value_field_name', [$this, 'getTranslationValueFieldName'])
+            new TwigFilter('locastic_symfony_translation_value_field_name', [$this, 'getTranslationValueFieldName'])
         ];
     }
 
