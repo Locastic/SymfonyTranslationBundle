@@ -96,8 +96,8 @@
 
         <!-- Utils -->
         <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils">
-            <bind key="string $localeCode">%locastic_symfony_translation_bundle.default_locale%</bind>
-            <bind key="array $locales">%locastic_symfony_translation_bundle.locales%</bind>
+            <bind key="string $localeCode">%locastic_symfony_translation.default_locale%</bind>
+            <bind key="array $locales">%locastic_symfony_translation.locales%</bind>
         </service>
         <service id="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtilsInterface"
                  alias="Locastic\SymfonyTranslationBundle\Utils\SearchTranslationsUtils" />
