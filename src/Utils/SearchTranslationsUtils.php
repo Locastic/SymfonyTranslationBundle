@@ -71,7 +71,7 @@ final class SearchTranslationsUtils implements SearchTranslationsUtilsInterface
         } else {
             $pagerFanta->setMaxPerPage(50);
         }
-        $pagerFanta->setCurrentPage($request->query->get('page', 1));
+        $pagerFanta->setCurrentPage((int) $request->query->get('page', 1));
 
         return $pagerFanta;
     }
