@@ -1,4 +1,18 @@
-# Locastic Translation Bundle
+<h1 align="center">
+Locastic Translation Bundle<br>
+    <a href="https://packagist.org/packages/locastic/symfony-translation-bundle" title="License" target="_blank">
+        <img src="https://img.shields.io/packagist/l/locastic/symfony-translation-bundle.svg" />
+    </a>
+    <a href="https://packagist.org/packages/locastic/symfony-translation-bundle" title="Version" target="_blank">
+        <img src="https://img.shields.io/packagist/v/Locastic/symfony-translation-bundle.svg" />
+    </a>
+    <a href="https://scrutinizer-ci.com/g/Locastic/SymfonyTranslationBundle/" title="Scrutinizer" target="_blank">
+        <img src="https://img.shields.io/scrutinizer/g/Locastic/SymfonyTranslationBundle" />
+    </a>
+    <a href="https://packagist.org/packages/locastic/symfony-translation-bundle" title="Total Downloads" target="_blank">
+        <img src="https://poser.pugx.org/locastic/symfony-translation-bundle/downloads" />
+    </a>
+</h1>
 
 This bundle gives the basis to allow translating your messages from any admin panel.
 You will now be able to create translation migrations, the same way you create your database migrations.
